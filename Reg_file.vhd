@@ -14,7 +14,7 @@ use ieee.numeric_std_unsigned.all;
 entity Reg_File is
     port(
         clk : in std_logic;
-        regWrite : in std_logic; -- Flag to write - should be 1 if writing
+        Write : in std_logic; -- Flag to write - should be 1 if writing
         readReg1 : in std_logic_vector(2 downto 0); -- A1
         readReg2 : in std_logic_vector(2 downto 0); -- A2
         writeReg : in std_logic_vector(2 downto 0); -- A3
@@ -49,7 +49,7 @@ architecture struct of Reg_File is
         regW : Register_16b port map(
             Clk => clk,
             Reset => '0',
-            write => writeFlag(i) and regWrite ,
+            write => writeFlag(i) and Write ,
             data_in => writeData,
             data_out => writeDataBuff2
         );
