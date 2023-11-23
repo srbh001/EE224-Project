@@ -4,13 +4,13 @@ use ieee.std_logic_1164.all;
 library work;
 use work.all;
 
-entity Register6bit is
+entity Register_16b is
 port(Clk, Reset, write : in std_logic;
 data_in : in std_logic_vector(15 downto 0);
 data_out : out std_logic_vector(15 downto 0));
 end entity;
 
-architecture struct of Register6bit is 
+architecture struct of Register_16b is 
 	
 	
     entity D_FF is 

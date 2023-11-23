@@ -20,7 +20,7 @@ end RegisterFile;
 
 architecture struct of Reg_File is
 
-    component Register6bit is
+    component Register_16b is -- !6
         port(Clk, Reset : in std_logic;
         data_in : in std_logic_vector(15 downto 0);
         data_out : out std_logic_vector(15 downto 0));
