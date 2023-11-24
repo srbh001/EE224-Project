@@ -5,7 +5,7 @@ library work;
 use work.all;
 
 entity Register_16b is
-port(Clk, Reset, write : in std_logic;
+port(Clk, Reset, writef : in std_logic;
 data_in : in std_logic_vector(15 downto 0);
 data_out : out std_logic_vector(15 downto 0));
 end entity;
@@ -24,7 +24,7 @@ architecture struct of Register_16b is
 begin
 	
     gen : for i in 0 to 15 generate
-        sig_write <= (write and data_in(i)) or (not write and data_out_buffer(i));
+        sig_write <= (writef and data_in(i)) or (not writef and data_out_buffer(i));
         dff : D_FF port map (D=> sig_write, En => '1', reset => Reset, pre => '0', clk => Clk, Q=> data_out_buffer(i), Qbar => buffer_qbar(i));
     end generate gen;
     data_out <= data_out_buffer;

@@ -6,8 +6,8 @@ entity Reg_File_tb is
 end entity Reg_File_tb;
 
 architecture tb_arch of Reg_File_tb is
-  signal clk_tb, regWrite_tb : std_logic := '0';
-  signal readReg1_tb, readReg2_tb, writeReg_tb : std_logic_vector(2 downto 0) := (others => '0');
+  signal clk_tb, Writef_tb : std_logic := '0';
+  signal readReg1_tb, readReg2_tb, writeReg_tb : std_logic_vector(2 downto 0);
   signal writeData_tb : std_logic_vector(15 downto 0);
   signal readData1_tb, readData2_tb : std_logic_vector(15 downto 0);
 
@@ -15,7 +15,7 @@ architecture tb_arch of Reg_File_tb is
   component Reg_File
     port (
       clk : in std_logic;
-      Write : in std_logic;
+      Writeff : in std_logic;
       readReg1, readReg2, writeReg : in std_logic_vector(2 downto 0);
       writeData : in std_logic_vector(15 downto 0);
       readData1, readData2 : out std_logic_vector(15 downto 0)
@@ -23,7 +23,7 @@ architecture tb_arch of Reg_File_tb is
   end component Reg_File;
 
   -- Instantiate clock generator
-  signal clk_period : time := 20 ns;
+  signal clk_period : time := 10 ns;
   signal clk_count : integer := 0;
 
 begin
@@ -34,9 +34,9 @@ begin
     clk_tb <= not clk_tb;
 
     if clk_count = 0 then
-      Write_tb <= '0';  -- Initial read operations
+      Writef_tb <= '0';  -- Initial read operations
     else
-      Write_tb <= '1';  -- Write operations
+      Writef_tb <= '1';  -- Write operations
     end if;
 
     clk_count <= clk_count + 1;
@@ -46,7 +46,7 @@ begin
   uut: Reg_File
     port map (
       clk => clk_tb,
-      Write => Write_tb,
+      Writef => Writef_tb,
       readReg1 => readReg1_tb,
       readReg2 => readReg2_tb,
       writeReg => writeReg_tb,
@@ -59,7 +59,7 @@ begin
   stimulus_process: process
   begin
     -- Initial read operations
-    for i in 0 to 8 loop
+    for i in 0 to 255 loop
       wait until rising_edge(clk_tb);
       readReg1_tb <= std_logic_vector(to_unsigned(i, 3));
       readReg2_tb <= std_logic_vector(to_unsigned(i + 1, 3));
