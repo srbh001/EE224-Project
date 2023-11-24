@@ -2,7 +2,7 @@ library ieee;
 use ieee.std_logic_1164.all;
 library work;
 use work.GATES.all;
---use ieee.numeric_std_unsigned.all;
+use ieee.numeric_std_unsigned.all;
  -- Register File Works as follows :
     -- has 8 registers and each register is 16 bits 
     -- has 3 inputs : 
@@ -14,7 +14,7 @@ use work.GATES.all;
 entity Reg_File is
     port(
         clk : in std_logic;
-        Writes : in std_logic; -- Flag to write - should be 1 if writing
+        Write : in std_logic; -- Flag to write - should be 1 if writing
         readReg1 : in std_logic_vector(2 downto 0); -- A1
         readReg2 : in std_logic_vector(2 downto 0); -- A2
         writeReg : in std_logic_vector(2 downto 0); -- A3
@@ -49,7 +49,7 @@ architecture struct of Reg_File is
         regW : Register_16b port map(
             Clk => clk,
             Reset => '0',
-            writes => writeFlag(i) and Writes ,
+            write => writeFlag(i) and Write ,
             data_in => writeData,
             data_out => writeDataBuff2
         );
