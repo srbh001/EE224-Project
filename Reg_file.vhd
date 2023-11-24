@@ -45,14 +45,15 @@ architecture struct of Reg_File is
 
  
     
-    gen_reg : for i in 0 to 7 generate
-        i_match : str_match port map (a => writeReg, b => std_logic_vector(to_unsigned(i,3)), S => writeFlag(i)); -- returns '1' if i matches writeReg
+    -- gen_reg : for i in 0 to 7 generate
+    --     i_match : str_match port map (a => writeReg, b => std_logic_vector(to_unsigned(i,3)), S => writeFlag(i)); -- returns '1' if i matches writeReg
     
     
-    end generate;
+    -- end generate;
 
 ---- REGISTERS COMPONENTS ----
-
+    write_bit : ThreetoEightDemux port map (A=>writeReg, Y=>writeFlag);
+    
     regW1 : Register_16b port map(
             Clk => clk,
             Reset => '0',

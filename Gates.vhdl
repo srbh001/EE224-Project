@@ -49,8 +49,13 @@ component TwoxOneMux is -- 2x1 Mux with 8 bit inputs
       Y: out std_logic);
 end component TwoxOneMux;
 
+component ThreetoEightDemux is 
+   port (A: in std_logic_vector(2 downto 0);
+         Y: out std_logic_vector(7 downto 0));
+end component ThreetoEightDemux;
+
 component EighttoOneMux is 
-  port (A, B, C, D, E, F, G, H: in std_logic_vector(15 downto 0);
+  port (A, B, C, D, E, F, G, H: in std_logic_vector(15 downto 0));
       Sel: in std_logic_vector(2 downto 0);
         Y: out std_logic_vector(15 downto 0));
 end component EighttoOneMux;
@@ -211,4 +216,23 @@ end generate;
 end struct;
 
 
-  
+library ieee;
+use ieee.std_logic_1164.all;
+use ieee.numeric_std.all;
+entity ThreetoEightDemux is 
+port (A: in std_logic_vector(2 downto 0);
+      Y: out std_logic_vector(7 downto 0));
+end entity ThreetoEightDemux;
+
+architecture struct of ThreetoEightDemux is
+   signal Y_temp : std_logic_vector(7 downto 0) := (others => '0');
+   begin
+      gen : for i in 0 to 7 generate
+         Y_temp(i) <= ((A(0) and std_logic_vector(to_unsigned(i, 3))(0)) and 
+         (A(1) and std_logic_vector(to_unsigned(i, 3))(1) ) and
+         (A(2) and std_logic_vector(to_unsigned(i, 3))(2) )
+         );
+      end generate;
+end struct;
+
+
