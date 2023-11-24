@@ -12,20 +12,20 @@ end entity;
 
 architecture struct of Register_16b is 
 	
-	
-    entity D_FF is 
+    component D_FF is 
     port(D,En,reset,pre,clk : in std_logic;
             Q,Qbar : buffer std_logic);
-    end entity D_FF ;
+    end component D_FF ;
+	 
 	signal buffer_qbar :std_logic_vector(15 downto 0);
     signal data_out_buffer : std_logic_vector(15 downto 0);
-    signal sig_write;
+    signal sig_write: std_logic_vector(15 downto 0) :=(others => '0');
     
 begin
 	
     gen : for i in 0 to 15 generate
-        sig_write <= (writef and data_in(i)) or (not writef and data_out_buffer(i));
-        dff : D_FF port map (D=> sig_write, En => '1', reset => Reset, pre => '0', clk => Clk, Q=> data_out_buffer(i), Qbar => buffer_qbar(i));
+        sig_write(i) <= (writef and data_in(i)) or (not writef and data_out_buffer(i));
+        dff : D_FF port map (D=> sig_write(i), En => '1', reset => Reset, pre => '0', clk => Clk, Q=> data_out_buffer(i), Qbar => buffer_qbar(i));
     end generate gen;
     data_out <= data_out_buffer;
 
