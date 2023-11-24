@@ -34,3 +34,5 @@ architecture struct of add_sub is
 	FA16: FULLADDER port map(A=>A(15),B=>xors(15),C_in=>c(14),SUM=>S(15),C_out=>Cout);
 	
 end Struct;
+
+
