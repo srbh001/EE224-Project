@@ -50,9 +50,9 @@ component TwoxOneMux is -- 2x1 Mux with 8 bit inputs
 end component TwoxOneMux;
 
 component EighttoOneMux is 
-  port (A, B, C, D, E, F, G, H: in std_logic;
+  port (A, B, C, D, E, F, G, H: in std_logic_vector(15 downto 0);
       Sel: in std_logic_vector(2 downto 0);
-        Y: out std_logic);
+        Y: out std_logic_vector(15 downto 0));
 end component EighttoOneMux;
 
 
@@ -190,21 +190,24 @@ use ieee.std_logic_1164.all;
 
 
 entity EighttoOneMux is 
-    port (A, B, C, D, E, F, G, H: in std_logic;
+    port (A, B, C, D, E, F, G, H: in std_logic_vector(15 downto 0);
         Sel: in std_logic_vector(2 downto 0);
-          Y: out std_logic);
+          Y: out std_logic_vector(15 downto 0));
     end entity EighttoOneMux;
 
 architecture struct of EighttoOneMux is
 begin 
-    Y <= (A and (not sel(0) and not sel(1) and not sel(2) )) or 
-        (B and (not sel(0) and not sel(1) and sel(2) )) or
-        (C and (not sel(0) and sel(1) and not sel(2) )) or
-        (D and (not sel(0) and sel(1) and sel(2) )) or
-        (E and (sel(0) and not sel(1) and not sel(2) )) or
-        (F and (sel(0) and not sel(1) and sel(2) )) or
-        (G and (sel(0) and sel(1) and not sel(2) )) or
-        (H and (sel(0) and sel(1) and sel(2) ));
+gen : for i in 0 to 15 generate
+    Y(i) <= (A(i) and (not sel(0) and not sel(1) and not sel(2) )) or 
+        (B(i) and (not sel(0) and not sel(1) and sel(2) )) or
+        (C(i) and (not sel(0) and sel(1) and not sel(2) )) or
+        (D(i) and (not sel(0) and sel(1) and sel(2) )) or
+        (E(i) and (sel(0) and not sel(1) and not sel(2) )) or
+        (F(i) and (sel(0) and not sel(1) and sel(2) )) or
+        (G(i) and (sel(0) and sel(1) and not sel(2) )) or
+        (H(i) and (sel(0) and sel(1) and sel(2) ));
+
+end generate;
 end struct;
 
 

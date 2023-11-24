@@ -15,7 +15,7 @@ architecture tb_arch of Reg_File_tb is
   component Reg_File
     port (
       clk : in std_logic;
-      Writef : in std_logic;
+      Writeff : in std_logic;
       readReg1, readReg2, writeReg : in std_logic_vector(2 downto 0);
       writeData : in std_logic_vector(15 downto 0);
       readData1, readData2 : out std_logic_vector(15 downto 0)

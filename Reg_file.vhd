@@ -111,38 +111,31 @@ architecture struct of Reg_File is
             data_out => reg7
     );
     
-        
-    
-
-    
-
-    gene_read : for i in 0 to 15 generate
-        eightOneM : EighttoOneMux port map (
-            a => reg0(i),
-            b => reg1(i),
-            c => reg2(i),
-            d => reg3(i),
-            e => reg4(i),
-            f => reg5(i),
-            g => reg6(i),
-            h => reg7(i),
-            sel => readReg1,
-            y => readA(i)
-        );
-        eightOneM2 : EighttoOneMux port map (
-            a => reg0(i),
-            b => reg1(i),
-            c => reg2(i),
-            d => reg3(i),
-            e => reg4(i),
-            f => reg5(i),
-            g => reg6(i),
-            h => reg7(i),
-            sel => readReg2,
-            y => readB(i)
+    eightOneM : EighttoOneMux port map (
+        a => reg0,
+        b => reg1,
+        c => reg2,
+        d => reg3,
+        e => reg4,
+        f => reg5,
+        g => reg6,
+        h => reg7,
+        sel => readReg1,
+        y => readA        );
+    eightOneM2 : EighttoOneMux port map (
+        a => reg0,
+        b => reg1,
+        c => reg2,
+        d => reg3,
+        e => reg4,
+        f => reg5,
+        g => reg6,
+        h => reg7,
+        sel => readReg2,
+        y => readB
         );
     
-    end generate;
+
 
         readData1 <= readA;
         readData2 <= readB;
