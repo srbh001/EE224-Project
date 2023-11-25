@@ -46,7 +46,7 @@ end component str_match;
 component TwoxOneMux is -- 2x1 Mux with 8 bit inputs
   port (A, B: in  std_logic_vector(7 downto 0);
   Sel: std_logic; 
-      Y: out std_logic);
+      Y: out std_logic_vector(7 downto 0));
 end component TwoxOneMux;
 
 component ThreetoEightDemux is 
@@ -55,7 +55,7 @@ component ThreetoEightDemux is
 end component ThreetoEightDemux;
 
 component EighttoOneMux is 
-  port (A, B, C, D, E, F, G, H: in std_logic_vector(15 downto 0));
+  port (A, B, C, D, E, F, G, H: in std_logic_vector(15 downto 0);
       Sel: in std_logic_vector(2 downto 0);
         Y: out std_logic_vector(15 downto 0));
 end component EighttoOneMux;
@@ -178,7 +178,7 @@ use ieee.std_logic_1164.all;
 entity TwoxOneMux is
   port (A, B : in  std_logic_vector(7 downto 0); 
         Sel: in std_logic;
-        Y: out std_logic);
+        Y: out std_logic_vector(7 downto 0));
 end entity TwoxOneMux;
 
 architecture Equations of TwoxOneMux is
@@ -186,7 +186,6 @@ begin
     gen: for i in 0 to 7 generate
            Y(i) <= (A(i) and not Sel) or (B(i) and Sel);
         end generate;
-    end generate;
     
 end Equations;
 
@@ -226,13 +225,19 @@ end entity ThreetoEightDemux;
 
 architecture struct of ThreetoEightDemux is
    signal Y_temp : std_logic_vector(7 downto 0) := (others => '0');
-   begin
-      gen : for i in 0 to 7 generate
-         Y_temp(i) <= ((A(0) and std_logic_vector(to_unsigned(i, 3))(0)) and 
-         (A(1) and std_logic_vector(to_unsigned(i, 3))(1) ) and
-         (A(2) and std_logic_vector(to_unsigned(i, 3))(2) )
-         );
-      end generate;
+
+begin
+
+	Y(0) <= (A(0) xnor '0') and (A(1) xnor '0') and (A(2) xnor '0');
+	Y(1) <= (A(0) xnor '0') and (A(1) xnor '0') and (A(2) xnor '1');
+	Y(2) <= (A(0) xnor '0') and (A(1) xnor '1') and (A(2) xnor '0');
+	Y(3) <= (A(0) xnor '0') and (A(1) xnor '1') and (A(2) xnor '1');
+	Y(4) <= (A(0) xnor '1') and (A(1) xnor '0') and (A(2) xnor '0');
+	Y(5) <= (A(0) xnor '1') and (A(1) xnor '0') and (A(2) xnor '1');
+	Y(6) <= (A(0) xnor '1') and (A(1) xnor '1') and (A(2) xnor '0');
+	Y(7) <= (A(0) xnor '1') and (A(1) xnor '1') and (A(2) xnor '1');
+		
+		
 end struct;
 
 
