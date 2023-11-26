@@ -4,3 +4,7 @@
 /incremental_db
 /output_files
 /simulation
+/ALU/db
+/ALU/simulation
+/ALU//incremental_db
+/ALU/output_files
