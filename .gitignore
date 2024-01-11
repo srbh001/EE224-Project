@@ -1,0 +1,9 @@
+# Excluding the software generated files
+
+*.bak
+simulation/
+db/
+greybox_tmp/
+output_files/
+.qsys_edit/
+incremental_db/
